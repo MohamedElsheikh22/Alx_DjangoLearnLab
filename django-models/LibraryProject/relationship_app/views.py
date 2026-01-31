@@ -1,11 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.detail import DetailView
 from .models import Book
 from .models import Library
-from django.contrib.auth import login, logout
+from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
 
 # Function-based view to list all books
 def list_books(request):
@@ -25,7 +23,9 @@ class LibraryDetailView(DetailView):
     template_name = 'relationship_app/library_detail.html'
     context_object_name = 'library'
 
-def  register(request):
+
+# User registration view
+def register(request):
     """
     Handle user registration.
     """
@@ -38,13 +38,3 @@ def  register(request):
     else:
         form = UserCreationForm()
     return render(request, 'relationship_app/register.html', {'form': form})
-
-
-# User logout view
-@login_required
-def user_logout(request):
-    """
-    Handle user logout.
-    """
-    logout(request)
-    return render(request, 'relationship_app/logout.html')
