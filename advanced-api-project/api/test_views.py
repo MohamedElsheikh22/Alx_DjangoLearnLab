@@ -21,6 +21,7 @@ class BookAPITest(APITestCase):
         url = reverse('book-list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(len(response.data)>0)
 
     def test_create_book_authenticated(self):
         self.client.login(username='testuser', password='123456')
