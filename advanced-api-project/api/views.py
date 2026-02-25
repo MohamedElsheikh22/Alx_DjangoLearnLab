@@ -4,7 +4,7 @@ from rest_framework import generics, permissions
 from .models import Book
 from .serializers import BookSerializer
 from django_filters import rest_framework
-from rest_framework.filters import SearchFilter, OrderingFilter
+from rest_framework import filters
 # Create your views here.
 
 #LsitAPIView with filtering, searching and ordering
@@ -14,7 +14,7 @@ class BookListView(generics.ListAPIView):
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
     #filtering
-    filter_backends = [rest_framework.DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filter_backends = [rest_framework.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = ['title', 'author', 'publication_year']
     #search 
     search_fields = ['title', 'author__name', 'publication_year']
