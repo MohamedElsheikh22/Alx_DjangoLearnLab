@@ -30,3 +30,15 @@ Only authenticated users can crate, update, or delete
 
 ##Testing
 I tested the API using the Django REST Framework browsable API.
+
+##Filtering, Searching and Ordering
+You can filter:
+/api/books/?titile=
+/api/books/?publication_year=
+
+You can search:
+/api/books/?seach=django
+
+You can order:
+/api/books/?ordering=title
+/api/books/?ordering=-publication_year
