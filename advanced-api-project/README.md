@@ -42,3 +42,6 @@ You can search:
 You can order:
 /api/books/?ordering=title
 /api/books/?ordering=-publication_year
+
+##Running Tests
+python manage.py test api
