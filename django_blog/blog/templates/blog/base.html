@@ -1,14 +1,23 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Django Blog</title>
-    </head>
-    <body>
-        <h1>Welcome to Django Blog</h1>
-        <form action="{%url 'logout'%}" method="post">
-            {%csrf_token%}
-            <button type="submit">logout</button>
-        </form>
+<head>
+    <title>Django Blog</title>
+</head>
+<body>
 
-    </body>
+<h1>Welcome to Django Blog</h1>
+
+{% if user.is_authenticated %}
+<form action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+</form>
+{% endif %}
+
+<hr>
+
+{% block content %}
+{% endblock %}
+
+</body>
 </html>
