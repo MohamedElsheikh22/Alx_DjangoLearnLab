@@ -88,3 +88,21 @@ http://127.0.0.1:8000/posts/
 
 - The author of each post is automatically set to the logged-in user.
 - After creating, updating, or deleting a post, the user is redirected to the posts list page.
+
+## Comment Functionality
+
+This feature allows users to interact with blog posts through comments.
+
+### Features
+
+- View all comments under each post
+- Authenticated users can add comments
+- Users can edit and delete their own comments
+- Each comment is linked to a specific post and author
+- Unauthorized users can only view comments
+
+### URLs
+
+- `/post/<int:pk>/comment/new/` → add comment
+- `/comment/<int:pk>/update/` → edit comment
+- `/comment/<int:pk>/delete/` → delete comment
