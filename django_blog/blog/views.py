@@ -4,9 +4,12 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserUpdateForm, CommentForm,RegisterForm, PostForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from .models import Post, Comment, Tag
+from .models import Post, Comment
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models import Q
+from taggit.managers import TaggableManager
+from taggit.models import Tag
+
 
 # Create your views here.
 def home(request):
@@ -23,7 +26,7 @@ def search_posts(request):
 
 def posts_by_tag(request, tag_name):
     tag = get_object_or_404(Tag, name=tag_name)
-    posts = tag.posts.all()
+    posts = Post.objects.filter(tags_name_in=[tag_name])
     return render(request, 'blog/tag_posts.html', {
         'tag': tag,
         'posts': posts
