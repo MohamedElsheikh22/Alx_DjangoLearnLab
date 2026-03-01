@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
-from .forms import UserUpdateForm, CommentForm,RegisterForm
+from .forms import UserUpdateForm, CommentForm,RegisterForm, PostForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import Post, Comment, Tag
@@ -66,7 +66,7 @@ class PostDetailView(DetailView):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['title', 'content', 'tags']
+    form_class = PostForm
     template_name = 'blog/post_form.html'
     success_url = reverse_lazy('post-list')
 
@@ -76,7 +76,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
-    fields = ['title', 'content', 'tags']
+    form_class = PostForm
     template_name = 'blog/post_form.html'
     success_url = reverse_lazy('post-list')
     def test_func(self):
