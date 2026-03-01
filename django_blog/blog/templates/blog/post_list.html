@@ -1,6 +1,12 @@
 {% extends 'blog/base.html' %}
 
 {%block content%}
+
+<form method="get" action='{% url "search" %}'>
+    <input type="text" name='q' placeholder="Search...">
+    <button type="submit">Search</button>
+</form>
+
 <h2>All Posts</h2>
 <a href="{% url 'post-create' %}">Create New Post</a>
 {%for post in posts%}

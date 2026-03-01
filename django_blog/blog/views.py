@@ -4,13 +4,30 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserUpdateForm, CommentForm,RegisterForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from .models import Post, Comment
+from .models import Post, Comment, Tag
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-
+from django.db.models import Q
 
 # Create your views here.
 def home(request):
     return redirect('post-list')
+
+def search_posts(request):
+    query = request.GET.get('q')
+    results = Post.objects.filter(
+        Q(title__icontains=query)|
+        Q(content__icontains=query)|
+        Q(tags__name__icontains=query)
+    ).distinct()
+    return render(request, 'blog/search_results.html', {'posts': results})
+
+def posts_by_tag(request, tag_name):
+    tag = get_object_or_404(Tag, name=tag_name)
+    posts = tag.posts.all()
+    return render(request, 'blog/tag_posts.html', {
+        'tag': tag,
+        'posts': posts
+    })
 
 def register_view(request):
     if request.method == 'POST':
@@ -49,7 +66,7 @@ class PostDetailView(DetailView):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['title', 'content']
+    fields = ['title', 'content', 'tags']
     template_name = 'blog/post_form.html'
     success_url = reverse_lazy('post-list')
 
@@ -59,7 +76,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
-    fields = ['title', 'content']
+    fields = ['title', 'content', 'tags']
     template_name = 'blog/post_form.html'
     success_url = reverse_lazy('post-list')
     def test_func(self):

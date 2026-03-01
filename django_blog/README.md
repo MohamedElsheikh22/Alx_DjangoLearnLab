@@ -106,3 +106,79 @@ This feature allows users to interact with blog posts through comments.
 - `/post/<int:pk>/comment/new/` → add comment
 - `/comment/<int:pk>/update/` → edit comment
 - `/comment/<int:pk>/delete/` → delete comment
+
+# Django Blog
+
+This project is a simple blog application built with Django as part of the ALX Django Learn Lab.
+
+In this phase, tagging and search functionality were added to make it easier to organize posts and find content.
+
+---
+
+## Tagging System
+
+A Tag model was created and connected to the Post model using a ManyToMany relationship.
+
+Each post can have multiple tags, and each tag can belong to multiple posts.
+
+Tags can be added or edited while creating or updating a post.
+
+On the post detail page, the tags are displayed and each tag links to a page that shows all posts related to it.
+
+---
+
+## Search
+
+A search feature was implemented to allow users to search for posts using:
+
+- title
+- content
+- tags
+
+The search uses Django Q objects to filter results from multiple fields.
+
+Example:
+/search/?q=django
+
+If no results are found, a message is displayed.
+
+---
+
+## Main URLs
+
+- `/post/` → list all posts  
+- `/post/new/` → create a new post  
+- `/post/<id>/` → post details  
+- `/post/<id>/update/` → update post  
+- `/post/<id>/delete/` → delete post  
+- `/tags/<tag_name>/` → posts filtered by tag  
+- `/search/?q=keyword` → search results  
+
+---
+
+## How to use
+
+1. Login to your account
+2. Create a new post
+3. Add tags to the post
+4. Open the post to see the tags
+5. Click on any tag to see related posts
+6. Use the search bar to find posts
+
+---
+
+## Files updated
+
+- models.py → added Tag model and relation with Post  
+- views.py → search view and posts by tag view  
+- urls.py → added routes for tags and search  
+- templates → display tags and search results  
+
+---
+
+## Notes
+
+- Tags are optional when creating a post
+- A post can exist without tags
+- Search works even if only part of the word is entered
+

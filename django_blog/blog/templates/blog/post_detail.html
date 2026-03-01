@@ -33,4 +33,12 @@
     <p>You must be logged in to add a comment.</p>
 {%endif%}
 
+<p>Tags:
+{% for tag in post.tags.all %}
+    <a href="{% url 'tag-posts' tag.name %}">#{{tag.name}}</a>
+{%empty%}
+ No Tags
+{%endfor%}
+</p>
+
 {%endblock%}
