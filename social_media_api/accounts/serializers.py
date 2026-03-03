@@ -33,6 +33,8 @@ class UserLoginSerializer(serializers.Serializer):
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
+    bio = serializers.CharField(required=False, allow_blank=True)
+
     class Meta:
         model = User
         fields = ('id', 'username', 'email', 'bio', 'profile_picture', 'followers')
